@@ -164,9 +164,11 @@ new Vue ({
             ],
             }
         ],
-
+        selectedIndex: 0,
     },
     methods:{
-        
+        openChat(index) {
+            this.selectedIndex = index
+        }
     }
 })

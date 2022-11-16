@@ -139,6 +139,10 @@ body::before{
     flex-wrap: wrap;
 }
 
+.contact:hover{
+    background-color: #e0e0e0;
+}
+
 .info-contact{
     height: 100%;
     display: flex;
@@ -204,7 +208,7 @@ body::before{
     align-self: flex-end;
 }
 
-.recived{
+.received{
     background-color: #ffffff;
     align-self: flex-start;
 }

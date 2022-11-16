@@ -49,23 +49,23 @@
                     <input type="text" placeholder="cerca o inizia una nuova chat" class="input-search">
                 </div>
                 <div class="chat">
-                    <div class="contact" v-for="obj in contacts" :key="obj.name">
+                    <div class="contact" @click="openChat(i)" v-for="(obj, i) in contacts" :key="obj.name">
                         <img class="img-contact" :src="obj.avatar" alt="obj.name">
                         <div class="info-contact">
                             <h2 class="name w-100">{{ obj.name }}</h2>
                             <p class="last-message">{{ obj.messages[0].message.slice(0,18) + "..." }}</p>
                         </div>
-                        <span class="h-last-message">12.00</span>
+                        <span class="h-last-message">{{ obj.messages[0].date.slice(11,16) }}</span>
                     </div>
                 </div>
             </div>
             <div class="message-side">
-                <div class="selected-contact">
+                <div class="selected-contact" v-if="i === selectedIndex" v-for="(obj, i) in contacts" :key="obj.avatar">
                     <div class="contact">
-                        <img src="img/avatar_3.jpg" alt="" class="img-contact">
+                        <img :src="obj.avatar" alt="obj.name" class="img-contact">
                         <div>
-                            <h2 class="name">Franchellone</h2>
-                            <p class="last-message">Ultimo accesso oggi alle 12:00</p>
+                            <h2 class="name">{{ obj.name }}</h2>
+                            <p class="last-message">Ultimo accesso oggi alle {{ obj.messages[0].date.slice(11,16) }}</p>
                         </div>
                     </div>
                     <div class="controls">
@@ -74,14 +74,10 @@
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                     </div>
                 </div>
-                <div class="current-chat">
-                    <div class="message sent">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur consequuntur quae similique dolore sit ipsa sed asperiores neque hic aliquam eos dicta aspernatur, culpa id pariatur eius fugiat? Consectetur, illo.</p>
-                        <span class="hour">15:30</span>
-                    </div>
-                    <div class="message recived">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur consequuntur quae similique dolore sit ipsa sed asperiores neque hic aliquam eos dicta aspernatur, culpa id pariatur eius fugiat? Consectetur, illo.</p>
-                        <span class="hour">15:30</span>
+                <div class="current-chat" v-if="index === selectedIndex" v-for="(obj, index) in contacts" :key="obj.name">
+                    <div class="message" v-for="message in obj.messages" :class="message.status === 'received' ? 'received' : 'sent'">
+                        <p>{{ message.message }}</p>
+                        <span class="hour">{{ message.date.slice(11,16) }}</span>
                     </div>
                 </div>
                 <div class="writers">
