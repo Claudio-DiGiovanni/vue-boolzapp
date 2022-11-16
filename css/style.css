@@ -25,4 +25,217 @@ body::before{
     height: 95%;
     background-color: salmon;
     margin: auto;
+    padding: 0;
+    display: flex;
+}
+
+.contact-side{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.my-contact{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1rem;
+    height: 6rem;
+    background-color: #f0eff0;
+    border: 1px solid gray;
+}
+
+.img-contact{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.me{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.name{
+    font-size: 20px;
+}
+
+.controls{
+    padding-right: 1rem;
+}
+
+.controls i{
+    padding: .5rem;
+    color: grey;
+    font-size: 20px;
+}
+
+.notify-alert{
+    background-color: #8edafc;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.notify-alert i{
+    color: #8edafc;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 50%;
+}
+
+.notify-alert p{
+    margin: 0;
+}
+
+.notify-alert a{
+    color: gray;
+}
+
+.search-bar{
+    background-color: #fafafa;
+    padding: .3rem;
+    display: flex;
+}
+
+.search-bar input{
+    width: 80%;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-left: none;
+    border-radius: 0 3px 3px 0;
+    padding: .3rem;
+}
+
+.search-bar button{
+    background-color: white;
+    width: 20%;
+    border: 1px solid lightgray;
+    color: grey;
+    border-radius: 3px 0 0 3px;
+    padding: .3rem;
+}
+
+.search-bar button:hover{
+    background-color: rgb(223, 221, 221);
+}
+
+.chat{
+    flex: 1 0 0;
+    background-color: white;
+    overflow-y: scroll;
+}
+
+.contact{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+    border-bottom: 1px solid lightgray;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.info-contact{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.last-message{
+    color: rgb(150, 149, 149);
+    font-size: 15px;
+}
+
+.h-last-message{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 13px;
+    color: rgb(150, 149, 149);
+}
+
+.message-side{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.selected-contact{
+    width: 100%;
+    height: 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0eff0;
+    border: 1px solid gray;
+    border-left: none;
+}
+
+.selected-contact .contact{
+    border: none;
+}
+
+.current-chat{
+    flex: 1 0 0;
+    background-image: url(../img/mine.jpg);
+    background-position: center;
+    background-size: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.5rem;
+    overflow-y: scroll;
+}
+
+.message{
+    max-width: 20rem;
+    border-radius: 15px;
+    padding: 1rem;
+    position: relative;
+}
+
+.sent{
+    background-color: #d5f9ba;
+    align-self: flex-end;
+}
+
+.recived{
+    background-color: #ffffff;
+    align-self: flex-start;
+}
+
+.hour{
+    position: absolute;
+    bottom: .5rem;
+    right: .5rem;
+    font-size: 15px;
+    color: rgb(150, 149, 149);
+}
+
+.writers{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+    background-color: #f3eeea;
+    padding: 0 2rem;
+}
+
+.writers i{
+    color: gray;
+    font-size: 25px;
+}
+
+.input-message{
+    width: 70%;
+    padding: .7rem;
+    border: none;
+    background-color: #ffffff;
+    border-radius: 5px;
 }
