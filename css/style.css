@@ -198,14 +198,17 @@ body::before{
 
 .message{
     max-width: 20rem;
+    min-width: 5rem;
     border-radius: 15px;
     padding: 1rem;
     position: relative;
+    font-size: 18px;
 }
 
 .sent{
     background-color: #d5f9ba;
     align-self: flex-end;
+    text-align: end;
 }
 
 .received{

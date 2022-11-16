@@ -186,9 +186,15 @@ new Vue ({
                 message: '',
                 status: 'sent'
             }
+            reply = {
+                date: this.currentDate(),
+                message: 'Ok!',
+                status: 'received'
+            }
             myMessage.message = newMessage;
             this.contacts[this.selectedIndex].messages.push(myMessage); 
             this.newMessage = '';
+            setTimeout(() => this.contacts[this.selectedIndex].messages.push(reply), 3000);
         },
     }
 })

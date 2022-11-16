@@ -76,7 +76,7 @@
                 </div>
                 <div class="current-chat" v-if="index === selectedIndex" v-for="(obj, index) in contacts" :key="obj.name">
                     <div class="message" v-for="message in obj.messages" :class="message.status === 'received' ? 'received' : 'sent'">
-                        <p>{{ message.message }}</p>
+                        <p class="text-capitalize">{{ message.message }}</p>
                         <span class="hour">{{ message.date.slice(11,16) }}</span>
                     </div>
                 </div>
