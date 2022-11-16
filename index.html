@@ -49,11 +49,11 @@
                     <input type="text" placeholder="cerca o inizia una nuova chat" class="input-search">
                 </div>
                 <div class="chat">
-                    <div class="contact">
-                        <img class="img-contact" src="img/avatar_2.jpg" alt="">
+                    <div class="contact" v-for="obj in contacts" :key="obj.name">
+                        <img class="img-contact" :src="obj.avatar" alt="obj.name">
                         <div class="info-contact">
-                            <h2 class="name w-100">Renato Tre</h2>
-                            <p class="last-message">Lorem ipsum dolor s</p>
+                            <h2 class="name w-100">{{ obj.name }}</h2>
+                            <p class="last-message">{{ obj.messages[0].message.slice(0,18) + "..." }}</p>
                         </div>
                         <span class="h-last-message">12.00</span>
                     </div>
