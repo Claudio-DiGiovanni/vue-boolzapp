@@ -165,10 +165,30 @@ new Vue ({
             }
         ],
         selectedIndex: 0,
+        newMessage: '',
+        
     },
     methods:{
         openChat(index) {
             this.selectedIndex = index
-        }
+        },
+
+        currentDate() {
+            current = new Date();
+            cDate = current.getFullYear() + '/' + (current.getMonth() + 1) + '/' + current.getDate();
+            cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+            dateTime = cDate + ' ' + cTime;
+            return dateTime;
+        },
+        writeMessage(newMessage) {
+            myMessage = {
+                date: this.currentDate(),
+                message: '',
+                status: 'sent'
+            }
+            myMessage.message = newMessage;
+            this.contacts[this.selectedIndex].messages.push(myMessage); 
+            this.newMessage = '';
+        },
     }
 })
