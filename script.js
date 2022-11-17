@@ -199,16 +199,13 @@ new Vue ({
         },
         filter() {
             this.contacts.forEach((ele, i) => {
-                if (this.filterName !== this.contacts[i].name.toLowerCase().slice(0, this.filterName.length)) {
+                if (!this.contacts[i].name.toLowerCase().includes(this.filterName)) {
                     this.contacts[i].visible = false;
                 } else {
                     this.contacts[i].visible = true
                 }
             });
-        }
+        },
         
     },
-    computed: {
-       
-    }
 })
