@@ -23,12 +23,12 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div id="app">
+    <div id="app" v-cloak>
         <div class="container">
             <div class="contact-side">
                 <div class="my-contact">
                     <div class="me">
-                        <img src="img/avatar_1.jpg" alt="io" class="img-contact">
+                        <img src="img/avatar_io.jpg" alt="io" class="img-contact">
                         <h2 class="name">Fred Lapalosh</h2>
                     </div>
                     <div class="controls">
@@ -46,16 +46,16 @@
                 </div>
                 <div class="search-bar">
                     <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <input type="text" placeholder="cerca o inizia una nuova chat" class="input-search">
+                    <input type="text" placeholder="cerca o inizia una nuova chat" @keyup="filter" class="input-search" v-model="filterName">
                 </div>
                 <div class="chat">
-                    <div class="contact" @click="openChat(i)" v-for="(obj, i) in contacts" :key="obj.name">
+                    <div class="contact" @click="openChat(i)" v-if="obj.visible === true" v-for="(obj, i) in contacts" :key="obj.name">
                         <img class="img-contact" :src="obj.avatar" alt="obj.name">
                         <div class="info-contact">
                             <h2 class="name w-100">{{ obj.name }}</h2>
-                            <p class="last-message">{{ obj.messages[0].message.slice(0,18) + "..." }}</p>
+                            <p class="last-message">{{ obj.messages[obj.messages.length - 1].message.slice(0,18) + "..." }}</p>
                         </div>
-                        <span class="h-last-message">{{ obj.messages[0].date.slice(11,16) }}</span>
+                        <span class="h-last-message">{{ obj.messages[obj.messages.length - 1].date.slice(11,16) }}</span>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                         <img :src="obj.avatar" alt="obj.name" class="img-contact">
                         <div>
                             <h2 class="name">{{ obj.name }}</h2>
-                            <p class="last-message">Ultimo accesso oggi alle {{ obj.messages[0].date.slice(11,16) }}</p>
+                            <p class="last-message">Ultimo accesso oggi alle {{ obj.messages[obj.messages.length - 1].date.slice(11,16) }}</p>
                         </div>
                     </div>
                     <div class="controls">
@@ -76,7 +76,7 @@
                 </div>
                 <div class="current-chat" v-if="index === selectedIndex" v-for="(obj, index) in contacts" :key="obj.name">
                     <div class="message" v-for="message in obj.messages" :class="message.status === 'received' ? 'received' : 'sent'">
-                        <p class="text-capitalize">{{ message.message }}</p>
+                        <p>{{ message.message }}</p>
                         <span class="hour">{{ message.date.slice(11,16) }}</span>
                     </div>
                 </div>

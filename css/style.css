@@ -139,7 +139,7 @@ body::before{
     flex-wrap: wrap;
 }
 
-.contact:hover{
+.chat .contact:hover{
     background-color: #e0e0e0;
 }
 

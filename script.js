@@ -166,6 +166,7 @@ new Vue ({
         ],
         selectedIndex: 0,
         newMessage: '',
+        filterName: '',
         
     },
     methods:{
@@ -188,7 +189,7 @@ new Vue ({
             }
             reply = {
                 date: this.currentDate(),
-                message: 'Ok!',
+                message: 'Ok',
                 status: 'received'
             }
             myMessage.message = newMessage;
@@ -196,5 +197,18 @@ new Vue ({
             this.newMessage = '';
             setTimeout(() => this.contacts[this.selectedIndex].messages.push(reply), 3000);
         },
+        filter() {
+            this.contacts.forEach((ele, i) => {
+                if (this.filterName !== this.contacts[i].name.toLowerCase().slice(0, this.filterName.length)) {
+                    this.contacts[i].visible = false;
+                } else {
+                    this.contacts[i].visible = true
+                }
+            });
+        }
+        
+    },
+    computed: {
+       
     }
 })
