@@ -167,7 +167,7 @@ new Vue ({
         selectedIndex: 0,
         newMessage: '',
         filterName: '',
-        
+        menuVisibility: {menuVisibility: false},
     },
     methods:{
         openChat(index) {
@@ -199,13 +199,26 @@ new Vue ({
         },
         filter() {
             this.contacts.forEach((ele, i) => {
-                if (!this.contacts[i].name.toLowerCase().includes(this.filterName)) {
+                if (!this.contacts[i].name.toLowerCase().includes(this.filterName.toLowerCase())) {
                     this.contacts[i].visible = false;
                 } else {
                     this.contacts[i].visible = true
                 }
             });
         },
-        
+        openMenu(index) {
+            if (this.contacts[index].messages.menuVisibility = true) {
+                !this.contacts[index].messages.menuVisibility;
+            } else {
+                this.contacts[index].messages.menuVisibility = true
+            }
+        }
     },
+    mounted() {
+        this.contacts.forEach(obj => {
+            obj.messages.forEach(ele => {
+                ele.push(menuVisibility)
+            })
+        })
+    }
 })

@@ -64,6 +64,8 @@ body::before{
 
 .controls{
     padding-right: 1rem;
+    display: flex;
+    flex-wrap: nowrap;
 }
 
 .controls i{
@@ -136,7 +138,7 @@ body::before{
     gap: 1rem;
     border-bottom: 1px solid lightgray;
     position: relative;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .chat .contact:hover{
@@ -203,6 +205,7 @@ body::before{
     padding: 1rem;
     position: relative;
     font-size: 18px;
+    word-wrap: break-word;
 }
 
 .sent{
@@ -245,4 +248,25 @@ body::before{
     border: none;
     background-color: #ffffff;
     border-radius: 5px;
+}
+
+.menu{
+    width: 200px;
+    background-color: #f0eff0;
+    position: absolute;
+    z-index: 10;
+}
+
+.menu div{
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid lightgray;
+    font-size: 20px;
+}
+
+.menu div:hover{
+    background-color: #e0e0e0;
 }

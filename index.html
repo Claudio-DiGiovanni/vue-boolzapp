@@ -49,13 +49,13 @@
                     <input type="text" placeholder="cerca o inizia una nuova chat" @keyup="filter" class="input-search" v-model="filterName">
                 </div>
                 <div class="chat">
-                    <div class="contact" @click="openChat(i)" v-if="obj.visible === true" v-for="(obj, i) in contacts" :key="obj.name">
+                    <div class="contact" @click="openChat(i)" v-if="obj.visible" v-for="(obj, i) in contacts" :key="obj.name">
                         <img class="img-contact" :src="obj.avatar" alt="obj.name">
                         <div class="info-contact">
                             <h2 class="name w-100">{{ obj.name }}</h2>
-                            <p class="last-message">{{ obj.messages[obj.messages.length - 1].message.slice(0,18) + "..." }}</p>
+                            <p class="last-message">{{ obj.messages[obj.messages.length - 1].message.slice(0, 18) + "..." }}</p>
                         </div>
-                        <span class="h-last-message">{{ obj.messages[obj.messages.length - 1].date.slice(11,16) }}</span>
+                        <span class="h-last-message">{{ obj.messages[obj.messages.length - 1].date.slice(11, 16) }}</span>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                         <img :src="obj.avatar" alt="obj.name" class="img-contact">
                         <div>
                             <h2 class="name">{{ obj.name }}</h2>
-                            <p class="last-message">Ultimo accesso oggi alle {{ obj.messages[obj.messages.length - 1].date.slice(11,16) }}</p>
+                            <p class="last-message">Ultimo accesso oggi alle {{ obj.messages[obj.messages.length - 1].date.slice(11, 16) }}</p>
                         </div>
                     </div>
                     <div class="controls">
@@ -75,9 +75,13 @@
                     </div>
                 </div>
                 <div class="current-chat" v-if="index === selectedIndex" v-for="(obj, index) in contacts" :key="obj.name">
-                    <div class="message" v-for="message in obj.messages" :class="message.status === 'received' ? 'received' : 'sent'">
+                    <div class="message" v-for="(message, i) in obj.messages" :class="message.status === 'received' ? 'received' : 'sent'" @click="openMenu(i)">
+                        <div class="menu" v-if="!menuVisibility[i]">
+                            <div>Info message</div>
+                            <div>Delete message</div>
+                        </div>
                         <p>{{ message.message }}</p>
-                        <span class="hour">{{ message.date.slice(11,16) }}</span>
+                        <span class="hour">{{ message.date.slice(11, 16) }}</span>
                     </div>
                 </div>
                 <div class="writers">
