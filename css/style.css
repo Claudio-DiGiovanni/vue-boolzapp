@@ -265,6 +265,7 @@ body::before{
     align-items: center;
     border: 1px solid lightgray;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .menu div:hover{
