@@ -16,6 +16,11 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- GoogleFont -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Fredoka+One&display=swap" rel="stylesheet">
+
     <!-- Style -->
     <link rel="stylesheet" href="css/style.css">
 
@@ -24,84 +29,95 @@
 </head>
 <body>
     <div id="app" v-cloak>
-        <div class="container">
-            <div class="contact-side">
-                <div class="my-contact">
-                    <div class="me">
-                        <img src="img/avatar_io.jpg" alt="io" class="img-contact">
-                        <h2 class="name">Fred Lapalosh</h2>
-                    </div>
-                    <div class="controls">
-                        <i class="fa-solid fa-circle-notch" @click="addChat"></i>
-                        <i class="fa-solid fa-message" @click="focusMessage"></i>
-                        <i class="fa-solid fa-ellipsis-vertical"  @click="chatMenu"></i>
-                        <div v-if="showChatMenu" class="menu">
-                            <div @click="deleteAllChat">Elimina tutte le Chat</div>
+        <div class="splash-page" v-if="loading">
+            <img src="https://logodownload.org/wp-content/uploads/2015/04/whatsapp-logo-1-1.png">
+            <p>LOADING...</p>
+        </div>
+        <div class="container" v-if="!loading">
+            <div class="row">
+                <div class="contact-side col-12 col-md-4 d-md-flex" :class="selectedIndex === -1 ?  'd-flex' : 'd-none'">
+                    <div class="my-contact">
+                        <div class="me">
+                            <img src="img/avatar_io.jpg" alt="io" class="img-contact">
+                            <h2 class="name">Fred Lapalosh</h2>
+                        </div>
+                        <div class="controls">
+                            <i class="fa-solid fa-circle-notch" @click="addChat"></i>
+                            <i class="fa-solid fa-message" @click="focusMessage"></i>
+                            <i class="fa-solid fa-ellipsis-vertical"  @click="chatMenu"></i>
+                            <div v-if="showChatMenu" class="menu">
+                                <div @click="deleteAllChat">Elimina tutte le Chat</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="notify-alert">
-                    <i class="fa-solid fa-bell-slash"></i>
-                    <div>
-                        <p>Ricevi notifice di nuovi messaggi</p>
-                        <a href="#">Attiva notifiche desktop</a>
-                    </div>
-                </div>
-                <div class="search-bar">
-                    <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <input ref="inputSearch" type="text" placeholder="cerca o inizia una nuova chat" @keyup="filter" class="input-search" v-model="filterName">
-                </div>
-                <div class="chat">
-                    <div class="contact" @click="openChat(i)" v-if="obj.visible" v-for="(obj, i) in contacts" :key="obj.name">
-                        <img class="img-contact" :src="obj.avatar" alt="obj.name">
-                        <div class="info-contact">
-                            <h2 class="name w-100">{{ obj.name }}</h2>
-                            <p class="last-message" v-if="obj.messages.length !== 0">{{ obj.messages[obj.messages.length - 1].message.slice(0, 18) + "..." }}</p>
-                        </div>
-                        <span class="h-last-message" v-if="obj.messages.length !== 0">{{ obj.messages[obj.messages.length - 1].date.slice(11, 16) }}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="message-side">
-                <div class="selected-contact" v-if="i === selectedIndex" v-for="(obj, i) in contacts" :key="obj.avatar">
-                    <div class="contact">
-                        <img :src="obj.avatar" alt="obj.name" class="img-contact">
+                    <div class="notify-alert">
+                        <i class="fa-solid fa-bell-slash"></i>
                         <div>
-                            <h2 class="name">{{ obj.name }}</h2>
-                            <p class="last-message" v-if="obj.messages.length !== 0">{{ obj.lastMessage[obj.lastMessageIndex] + (obj.lastMessageIndex === 0 ? obj.messages[obj.messages.length - 1].date.slice(11, 16) : "") }}</p>
+                            <p>Ricevi notifice di nuovi messaggi</p>
+                            <a href="#">Attiva notifiche desktop</a>
                         </div>
                     </div>
-                    <div class="controls">
-                        <i class="fa-solid fa-magnifying-glass" @click="focusSearch"></i>
-                        <i class="fa-solid fa-paperclip" @click="attachment"></i>
-                        <div  v-if="showSendImg" class="menu">
-                            <div @click="sendImg">Allega immagine</div>
-                        </div>
-                        <i class="fa-solid fa-ellipsis-vertical" @click="options"></i>
-                        <div class="menu" v-if="showOptions">
-                            <div @click="deleteChat">Elimina chat</div>
-                            <div @click="deleteAllMessages">Elimina messaggi</div>
-                        </div>
+                    <div class="search-bar">
+                        <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input ref="inputSearch" type="text" placeholder="cerca o inizia una nuova chat" @keyup="filter" class="input-search" v-model="filterName">
                     </div>
-                </div>
-                <div class="current-chat" v-if="index === selectedIndex" v-for="(obj, index) in contacts" :key="obj.name">
-                    <div class="message" v-if="obj.messages.length !== 0" v-for="(message, indice) in obj.messages" :key="message.message" :class="message.status === 'received' ? 'received' : 'sent'" @click="openMenu(indice)">
-                        <div class="menu" v-if="message.menuVisibility">
-                            <div @click="infoMessage(indice)">Info message</div>
-                            <div @click="deleteMessage(indice)">Delete message</div>
+                    <div class="chat">
+                        <div class="contact" @click="openChat(i)" v-if="obj.visible" v-for="(obj, i) in contacts" :key="obj.name">
+                            <img class="img-contact" :src="obj.avatar" alt="obj.name">
+                            <div class="info-contact">
+                                <h2 class="name w-100">{{ obj.name }}</h2>
+                                <p class="last-message" v-if="obj.messages.length !== 0">{{ obj.messages[obj.messages.length - 1].message.slice(0, 18) + "..." }}</p>
+                            </div>
+                            <span class="h-last-message" v-if="obj.messages.length !== 0">{{ obj.messages[obj.messages.length - 1].date.slice(11, 16) }}</span>
                         </div>
-                        <img v-if="message.message.includes('http')" :src="message.message" :alt="message.message">
-                        <p v-if="!message.message.includes('http')">{{ message.message }}</p>
-                        <span class="hour">{{ message.date.slice(11, 16) }}</span>
                     </div>
                 </div>
-                <div class="writers">
-                    <i class="fa-regular fa-face-smile"></i>
-                    <input ref="inputMessage" type="text" class="input-message" placeholder="Scrivi un messaggio" @keyup.enter="writeMessage(newMessage)" v-model="newMessage">
-                    <i class="fa-solid fa-microphone" v-if="newMessage === ''"></i>
-                    <i class="fa-solid fa-paper-plane" @click="writeMessage(newMessage)" v-if="newMessage !== ''"></i>
+                <div class="message-side col-md-8 d-md-flex" :class="selectedIndex === -1 ? 'd-none' : 'd-md-flex'">
+                    <div class="welcome-page" v-if="selectedIndex === -1">
+                        <span>Benvenuto in Boolzapp</span>
+                        <span>Prego, selezionare una conversazione</span>
+                    </div>
+                    <div class="selected-contact" v-if="i === selectedIndex" v-for="(obj, i) in contacts" :key="obj.avatar">
+                        <div class="contact">
+                            <img :src="obj.avatar" alt="obj.name" class="img-contact">
+                            <div>
+                                <h2 class="name">{{ obj.name }}</h2>
+                                <p class="last-message" v-if="obj.messages.length !== 0">{{ obj.lastMessage[obj.lastMessageIndex] + (obj.lastMessageIndex === 0 ? obj.messages[obj.messages.length - 1].date.slice(11, 16) : "") }}</p>
+                            </div>
+                        </div>
+                        <div class="controls">
+                            <i class="fa-solid fa-magnifying-glass" @click="focusSearch"></i>
+                            <i class="fa-solid fa-paperclip" @click="attachment"></i>
+                            <div  v-if="showSendImg" class="menu">
+                                <div @click="sendImg">Allega immagine</div>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical" @click="options"></i>
+                            <div class="menu" v-if="showOptions">
+                                <div @click="deleteChat">Elimina chat</div>
+                                <div @click="deleteAllMessages">Elimina messaggi</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="current-chat" v-if="index === selectedIndex" v-for="(obj, index) in contacts" :key="obj.name">
+                        <div class="message" v-if="obj.messages.length !== 0" v-for="(message, indice) in obj.messages" :key="message.message" :class="message.status === 'received' ? 'received' : 'sent'" @click="openMenu(indice)">
+                            <div class="menu" v-if="message.menuVisibility">
+                                <div @click="infoMessage(indice)">Info message</div>
+                                <div @click="deleteMessage(indice)">Delete message</div>
+                            </div>
+                            <img v-if="message.message.includes('http')" :src="message.message" :alt="message.message">
+                            <p v-if="!message.message.includes('http')">{{ message.message }}</p>
+                            <span class="hour">{{ message.date.slice(11, 16) }}</span>
+                        </div>
+                    </div>
+                    <div class="writers" v-if="selectedIndex !== -1">
+                        <i class="fa-solid fa-arrow-rotate-left" @click="returnToChat"></i>
+                        <input ref="inputMessage" type="text" class="input-message" placeholder="Scrivi un messaggio" @keyup.enter="writeMessage(newMessage)" v-model="newMessage">
+                        <i class="fa-solid fa-microphone" v-if="newMessage === ''"></i>
+                        <i class="fa-solid fa-paper-plane" @click="writeMessage(newMessage)" v-if="newMessage !== ''"></i>
+                    </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </body>

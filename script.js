@@ -217,7 +217,7 @@ new Vue ({
             ],
             }
         ],
-        selectedIndex: 0,
+        selectedIndex: -1,
         newMessage: '',
         filterName: '',
         arrMessage: ["E noi qui a parlare di fica", 
@@ -231,8 +231,7 @@ new Vue ({
         showOptions: false,
         showSendImg: false,
         showChatMenu: false,
-        
-       
+        loading: true,
     },
     methods:{
         openChat(index) {
@@ -319,9 +318,13 @@ new Vue ({
         },
         deleteAllChat() {
             this.contacts.splice(0, this.contacts.length)
+            this.selectedIndex = -1
         },
         deleteChat() {
             this.contacts.splice(this.selectedIndex, 1)
+            if (this.contacts.length === 0) {
+                this.selectedIndex = -1
+            }
         },
         focusMessage() {
             this.$refs.inputMessage.focus()
@@ -341,6 +344,12 @@ new Vue ({
             messages: []
             };
             this.contacts.push(newChat)
+        },
+        returnToChat() {
+            this.selectedIndex = -1;
         }
     },
+    mounted() {
+        setTimeout(() => this.loading = !this.loading, 2000)
+    }
 })

@@ -23,14 +23,12 @@ body::before{
 
 .container{
     height: 95%;
-    background-color: salmon;
     margin: auto;
     padding: 0;
     display: flex;
 }
 
 .contact-side{
-    width: 30%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -178,7 +176,6 @@ i:hover{
 }
 
 .message-side{
-    width: 70%;
     display: flex;
     flex-direction: column;
 }
@@ -298,4 +295,56 @@ i:hover{
 
 .message img:active{
     scale: 2;
+}
+
+.welcome-page{
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/mine.jpg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.welcome-page span{
+    font-size: 30px;
+    font-weight: 500;
+    font-family: 'Fredoka One', cursive;
+}
+
+.splash-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #30b944;
+}
+
+.splash-page img{
+    width: 35%;
+}
+
+.splash-page p{
+    margin-top: 2rem;
+    font-size: 50px;
+    font-weight: 500;
+    font-family: 'Dancing Script', cursive;
+}
+
+.row{
+    width: 100%; 
+}
+
+.row .contact-side{
+    margin: 0;
+    padding: 0;
+}
+
+.row .message-side {
+    margin: 0;
+    padding: 0;
 }
