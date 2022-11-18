@@ -34,7 +34,10 @@
                     <div class="controls">
                         <i class="fa-solid fa-circle-notch"></i>
                         <i class="fa-solid fa-message"></i>
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                        <i class="fa-solid fa-ellipsis-vertical"  @click="chatMenu"></i>
+                        <div v-if="showChatMenu" class="menu">
+                            <div @click="deleteChat">Cancella Chat</div>
+                        </div>
                     </div>
                 </div>
                 <div class="notify-alert">
@@ -65,22 +68,29 @@
                         <img :src="obj.avatar" alt="obj.name" class="img-contact">
                         <div>
                             <h2 class="name">{{ obj.name }}</h2>
-                            <p class="last-message" v-if="obj.messages.length !== 0">Ultimo accesso oggi alle {{ obj.messages[obj.messages.length - 1].date.slice(11, 16) }}</p>
+                            <p class="last-message" v-if="obj.messages.length !== 0">{{ lastMessage[lastMessageIndex] + (lastMessageIndex === 0 ? obj.messages[obj.messages.length - 1].date.slice(11, 16) : "") }}</p>
                         </div>
                     </div>
                     <div class="controls">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <i class="fa-solid fa-paperclip"></i>
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                        <i class="fa-solid fa-paperclip" @click="attachment"></i>
+                        <div  v-if="showSendImg" class="menu">
+                            <div @click="sendImg">Allega immagine</div>
+                        </div>
+                        <i class="fa-solid fa-ellipsis-vertical" @click="options"></i>
+                        <div class="menu" v-if="showOptions">
+                            <div @click="deleteAllMessages">Cancella tutti i messaggi</div>
+                        </div>
                     </div>
                 </div>
                 <div class="current-chat" v-if="index === selectedIndex" v-for="(obj, index) in contacts" :key="obj.name">
                     <div class="message" v-if="obj.messages.length !== 0" v-for="(message, indice) in obj.messages" :key="message.date" :class="message.status === 'received' ? 'received' : 'sent'" @click="openMenu(indice)">
                         <div class="menu" v-if="message.menuVisibility">
-                            <div>Info message</div>
+                            <div @click="infoMessage(indice)">Info message</div>
                             <div @click="deleteMessage(indice)">Delete message</div>
                         </div>
-                        <p>{{ message.message }}</p>
+                        <img v-if="message.message.includes('http')" :src="message.message" :alt="message.message">
+                        <p v-if="!message.message.includes('http')">{{ message.message }}</p>
                         <span class="hour">{{ message.date.slice(11, 16) }}</span>
                     </div>
                 </div>

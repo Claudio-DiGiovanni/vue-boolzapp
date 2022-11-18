@@ -188,13 +188,32 @@ new Vue ({
         selectedIndex: 0,
         newMessage: '',
         filterName: '',
+        arrMessage: ["E noi qui a parlare di fica", 
+        "Le ali di terra che volano da te",
+        "Da me o farfallina che muovendo le ali sbaronella",
+        "Ma tu l'abbracci?",
+        "Te la devi scopa'",
+        "E che cos'è l'amore",
+        "Un secchio pieno di passione",
+        "Un'opera d'acqua"],
+        showOptions: false,
+        showSendImg: false,
+        showChatMenu: false,
+        lastMessage: ["Ultimo accesso oggi alle ",
+        "Online",
+        "sta scrivendo..."],
+        lastMessageIndex: 0,
        
     },
     methods:{
         openChat(index) {
             this.selectedIndex = index
         },
-
+        getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min
+        },
         currentDate() {
             current = new Date();
             cDate = current.getFullYear() + '/' + (current.getMonth() + 1) + '/' + current.getDate();
@@ -211,14 +230,18 @@ new Vue ({
             }
             reply = {
                 date: this.currentDate(),
-                message: 'Ok',
+                message: this.arrMessage[this.getRandomInt(0, this.arrMessage.length - 1)],
                 menuVisibility: false,
                 status: 'received'
             }
             myMessage.message = newMessage;
             this.contacts[this.selectedIndex].messages.push(myMessage); 
             this.newMessage = '';
-            setTimeout(() => this.contacts[this.selectedIndex].messages.push(reply), 3000);
+            setTimeout(() => this.lastMessageIndex = 1, 1000);
+            setTimeout(() => this.lastMessageIndex = 2, 3000);
+            setTimeout(() => this.lastMessageIndex = 1, 5000);
+            setTimeout(() => this.contacts[this.selectedIndex].messages.push(reply), 6000);
+            setTimeout(() => this.lastMessageIndex = 0, 7000)
         },
         filter() {
             this.contacts.forEach((ele, i) => {
@@ -234,6 +257,36 @@ new Vue ({
         },
         deleteMessage(index) {
             this.contacts[this.selectedIndex].messages.splice(index, 1)
-        }
+        },
+        options() {
+            this.showOptions = !this.showOptions
+        },
+        deleteAllMessages() {
+            this.contacts[this.selectedIndex].messages.splice(0, this.contacts[this.selectedIndex].messages.length)
+        },
+        infoMessage(index) {
+            console.log("Data: " + this.contacts[this.selectedIndex].messages[index].date);
+            console.log("Messaggio: " + this.contacts[this.selectedIndex].messages[index].message);
+            console.log("Stato: " + this.contacts[this.selectedIndex].messages[index].status);
+        },
+        attachment() {
+           this.showSendImg = !this.showSendImg ;
+        },
+        sendImg() {
+            url = prompt("inserisci l'url dell'immagine che vuoi inviare:");
+            imgMex = {
+                date: this.currentDate(),
+                message: url,
+                menuVisibility: false,
+                status: 'sent'
+            };
+            this.contacts[this.selectedIndex].messages.push(imgMex);
+        },
+        chatMenu() {
+            this.showChatMenu = !this.showChatMenu
+        },
+        deleteChat() {
+            this.contacts.splice(0, this.contacts.length)
+        },
     },
 })

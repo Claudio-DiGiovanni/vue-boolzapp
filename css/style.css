@@ -66,12 +66,18 @@ body::before{
     padding-right: 1rem;
     display: flex;
     flex-wrap: nowrap;
+    position: relative;
 }
 
 .controls i{
     padding: .5rem;
     color: grey;
     font-size: 20px;
+    cursor: pointer;
+}
+
+.controls i:hover{
+    scale: 1.3;
 }
 
 .notify-alert{
@@ -270,4 +276,15 @@ body::before{
 
 .menu div:hover{
     background-color: #e0e0e0;
+}
+
+.controls .menu{
+    position: absolute;
+    top: 2rem;
+    left: -7rem;
+}
+
+.message img{
+    width: 100%;
+    padding-bottom: 2rem;
 }
