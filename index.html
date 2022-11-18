@@ -32,11 +32,11 @@
                         <h2 class="name">Fred Lapalosh</h2>
                     </div>
                     <div class="controls">
-                        <i class="fa-solid fa-circle-notch"></i>
-                        <i class="fa-solid fa-message"></i>
+                        <i class="fa-solid fa-circle-notch" @click="addChat"></i>
+                        <i class="fa-solid fa-message" @click="focusMessage"></i>
                         <i class="fa-solid fa-ellipsis-vertical"  @click="chatMenu"></i>
                         <div v-if="showChatMenu" class="menu">
-                            <div @click="deleteChat">Cancella Chat</div>
+                            <div @click="deleteAllChat">Elimina tutte le Chat</div>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="search-bar">
                     <button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <input type="text" placeholder="cerca o inizia una nuova chat" @keyup="filter" class="input-search" v-model="filterName">
+                    <input ref="inputSearch" type="text" placeholder="cerca o inizia una nuova chat" @keyup="filter" class="input-search" v-model="filterName">
                 </div>
                 <div class="chat">
                     <div class="contact" @click="openChat(i)" v-if="obj.visible" v-for="(obj, i) in contacts" :key="obj.name">
@@ -68,23 +68,24 @@
                         <img :src="obj.avatar" alt="obj.name" class="img-contact">
                         <div>
                             <h2 class="name">{{ obj.name }}</h2>
-                            <p class="last-message" v-if="obj.messages.length !== 0">{{ lastMessage[lastMessageIndex] + (lastMessageIndex === 0 ? obj.messages[obj.messages.length - 1].date.slice(11, 16) : "") }}</p>
+                            <p class="last-message" v-if="obj.messages.length !== 0">{{ obj.lastMessage[obj.lastMessageIndex] + (obj.lastMessageIndex === 0 ? obj.messages[obj.messages.length - 1].date.slice(11, 16) : "") }}</p>
                         </div>
                     </div>
                     <div class="controls">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <i class="fa-solid fa-magnifying-glass" @click="focusSearch"></i>
                         <i class="fa-solid fa-paperclip" @click="attachment"></i>
                         <div  v-if="showSendImg" class="menu">
                             <div @click="sendImg">Allega immagine</div>
                         </div>
                         <i class="fa-solid fa-ellipsis-vertical" @click="options"></i>
                         <div class="menu" v-if="showOptions">
-                            <div @click="deleteAllMessages">Cancella tutti i messaggi</div>
+                            <div @click="deleteChat">Elimina chat</div>
+                            <div @click="deleteAllMessages">Elimina messaggi</div>
                         </div>
                     </div>
                 </div>
                 <div class="current-chat" v-if="index === selectedIndex" v-for="(obj, index) in contacts" :key="obj.name">
-                    <div class="message" v-if="obj.messages.length !== 0" v-for="(message, indice) in obj.messages" :key="message.date" :class="message.status === 'received' ? 'received' : 'sent'" @click="openMenu(indice)">
+                    <div class="message" v-if="obj.messages.length !== 0" v-for="(message, indice) in obj.messages" :key="message.message" :class="message.status === 'received' ? 'received' : 'sent'" @click="openMenu(indice)">
                         <div class="menu" v-if="message.menuVisibility">
                             <div @click="infoMessage(indice)">Info message</div>
                             <div @click="deleteMessage(indice)">Delete message</div>
@@ -96,8 +97,9 @@
                 </div>
                 <div class="writers">
                     <i class="fa-regular fa-face-smile"></i>
-                    <input type="text" class="input-message" placeholder="Scrivi un messaggio" @keyup.enter="writeMessage(newMessage)" v-model="newMessage">
-                    <i class="fa-solid fa-microphone"></i>
+                    <input ref="inputMessage" type="text" class="input-message" placeholder="Scrivi un messaggio" @keyup.enter="writeMessage(newMessage)" v-model="newMessage">
+                    <i class="fa-solid fa-microphone" v-if="newMessage === ''"></i>
+                    <i class="fa-solid fa-paper-plane" @click="writeMessage(newMessage)" v-if="newMessage !== ''"></i>
                 </div>
             </div>
         </div>

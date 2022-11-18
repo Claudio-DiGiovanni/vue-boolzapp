@@ -5,6 +5,10 @@ new Vue ({
             {
             name: 'Michele',
             avatar: 'img/avatar_1.jpg',
+            lastMessage: ["Ultimo accesso oggi alle ",
+            "Online",
+            "sta scrivendo..."],
+            lastMessageIndex: 0,
             visible: true,
             messages: [
             {
@@ -30,6 +34,10 @@ new Vue ({
             {
             name: 'Fabio',
             avatar: 'img/avatar_2.jpg',
+            lastMessage: ["Ultimo accesso oggi alle ",
+            "Online",
+            "sta scrivendo..."],
+            lastMessageIndex: 0,
             visible: true,
             messages: [
             {
@@ -55,6 +63,10 @@ new Vue ({
             {
             name: 'Samuele',
             avatar: 'img/avatar_3.jpg',
+            lastMessage: ["Ultimo accesso oggi alle ",
+            "Online",
+            "sta scrivendo..."],
+            lastMessageIndex: 0,
             visible: true,
             messages: [
             {
@@ -80,6 +92,10 @@ new Vue ({
             {
             name: 'Alessandro B.',
             avatar: 'img/avatar_4.jpg',
+            lastMessage: ["Ultimo accesso oggi alle ",
+            "Online",
+            "sta scrivendo..."],
+            lastMessageIndex: 0,
             visible: true,
             messages: [
             {
@@ -99,6 +115,10 @@ new Vue ({
             {
             name: 'Alessandro L.',
             avatar: 'img/avatar_5.jpg',
+            lastMessage: ["Ultimo accesso oggi alle ",
+            "Online",
+            "sta scrivendo..."],
+            lastMessageIndex: 0,
             visible: true,
             messages: [
             {
@@ -118,6 +138,10 @@ new Vue ({
             {
             name: 'Claudia',
             avatar: 'img/avatar_6.jpg',
+            lastMessage: ["Ultimo accesso oggi alle ",
+            "Online",
+            "sta scrivendo..."],
+            lastMessageIndex: 0,
             visible: true,
             messages: [
             {
@@ -143,6 +167,10 @@ new Vue ({
             {
             name: 'Federico',
             avatar: 'img/avatar_7.jpg',
+            lastMessage: ["Ultimo accesso oggi alle ",
+            "Online",
+            "sta scrivendo..."],
+            lastMessageIndex: 0,
             visible: true,
             messages: [
             {
@@ -162,6 +190,10 @@ new Vue ({
             {
             name: 'Davide',
             avatar: 'img/avatar_8.jpg',
+            lastMessage: ["Ultimo accesso oggi alle ",
+            "Online",
+            "sta scrivendo..."],
+            lastMessageIndex: 0,
             visible: true,
             messages: [
             {
@@ -199,10 +231,7 @@ new Vue ({
         showOptions: false,
         showSendImg: false,
         showChatMenu: false,
-        lastMessage: ["Ultimo accesso oggi alle ",
-        "Online",
-        "sta scrivendo..."],
-        lastMessageIndex: 0,
+        
        
     },
     methods:{
@@ -235,13 +264,16 @@ new Vue ({
                 status: 'received'
             }
             myMessage.message = newMessage;
-            this.contacts[this.selectedIndex].messages.push(myMessage); 
-            this.newMessage = '';
-            setTimeout(() => this.lastMessageIndex = 1, 1000);
-            setTimeout(() => this.lastMessageIndex = 2, 3000);
-            setTimeout(() => this.lastMessageIndex = 1, 5000);
-            setTimeout(() => this.contacts[this.selectedIndex].messages.push(reply), 6000);
-            setTimeout(() => this.lastMessageIndex = 0, 7000)
+
+            if (myMessage.message !== "") {
+                this.contacts[this.selectedIndex].messages.push(myMessage); 
+                this.newMessage = '';
+                setTimeout(() => this.contacts[this.selectedIndex].lastMessageIndex = 2, 3000);
+                setTimeout(() => this.contacts[this.selectedIndex].lastMessageIndex = 1, 5000);
+                setTimeout(() => this.contacts[this.selectedIndex].lastMessageIndex = 1, 1000);
+                setTimeout(() => this.contacts[this.selectedIndex].messages.push(reply), 6000);
+                setTimeout(() => this.contacts[this.selectedIndex].lastMessageIndex = 0, 7000)
+            } 
         },
         filter() {
             this.contacts.forEach((ele, i) => {
@@ -285,8 +317,30 @@ new Vue ({
         chatMenu() {
             this.showChatMenu = !this.showChatMenu
         },
-        deleteChat() {
+        deleteAllChat() {
             this.contacts.splice(0, this.contacts.length)
         },
+        deleteChat() {
+            this.contacts.splice(this.selectedIndex, 1)
+        },
+        focusMessage() {
+            this.$refs.inputMessage.focus()
+        },
+        focusSearch() {
+            this.$refs.inputSearch.focus()
+        },
+        addChat() {
+            newChat = {name: prompt("Come si chiama il tuo amico?"),
+            avatar: 'https://picsum.photos/200',
+            lastMessage: ["Ultimo accesso oggi alle ",
+            "Online",
+            "sta scrivendo...",
+            ""],
+            lastMessageIndex: 3,
+            visible: true,
+            messages: []
+            };
+            this.contacts.push(newChat)
+        }
     },
 })
