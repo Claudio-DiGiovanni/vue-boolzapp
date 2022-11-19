@@ -379,6 +379,6 @@ new Vue ({
         }
     },
     mounted() {
-        setTimeout(() => this.loading = !this.loading, 2000)
+        setTimeout(() => this.loading = !this.loading, 3000)
     }
 })

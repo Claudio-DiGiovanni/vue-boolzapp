@@ -320,7 +320,7 @@ i:hover{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #30b944;
+    background-color: #cfcfcf;
 }
 
 .splash-page img{
@@ -481,4 +481,18 @@ i:hover{
     border: none;
     border-radius: 5px;
     background-color: #cfcfcf;
+  }
+
+  .chargeBar{
+    height: 20px;
+    border-radius: 5px;
+    animation-name: charge;
+    animation-duration: 3s;
+    background-color: #30b944;
+    margin: 2rem 0;
+  }
+
+  @keyframes charge{
+    from {width: 0px;}
+    to {width: 1000px;}
   }
