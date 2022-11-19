@@ -15,13 +15,15 @@ new Vue ({
             date: '10/01/2020 15:30:55',
             message: 'Hai portato a spasso il cane?',
             menuVisibility: false,
-            status: 'sent'
+            status: 'sent',
+            visualized: true,
             },
             {
             date: '10/01/2020 15:50:00',
             message: 'Ricordati di stendere i panni',
             menuVisibility: false,
-            status: 'sent'
+            status: 'sent',
+            visualized: true,
             },
             {
             date: '10/01/2020 16:15:22',
@@ -44,7 +46,8 @@ new Vue ({
             date: '20/03/2020 16:30:00',
             message: 'Ciao come stai?',
             menuVisibility: false,
-            status: 'sent'
+            status: 'sent',
+            visualized: true,
             },
             {
             date: '20/03/2020 16:30:55',
@@ -56,7 +59,8 @@ new Vue ({
             date: '20/03/2020 16:35:00',
             message: 'Mi piacerebbe ma devo andare a fare la spesa.',
             menuVisibility: false,
-            status: 'sent'
+            status: 'sent',
+            visualized: true,
             }
             ],
             },
@@ -79,7 +83,8 @@ new Vue ({
             date: '28/03/2020 10:20:10',
             message: 'Sicuro di non aver sbagliato chat?',
             menuVisibility: false,
-            status: 'sent'
+            status: 'sent',
+            visualized: true,
             },
             {
             date: '28/03/2020 16:15:22',
@@ -102,7 +107,8 @@ new Vue ({
             date: '10/01/2020 15:30:55',
             message: 'Lo sai che ha aperto una nuova pizzeria?',
             menuVisibility: false,
-            status: 'sent'
+            status: 'sent',
+            visualized: true,
             },
             {
             date: '10/01/2020 15:50:00',
@@ -125,7 +131,8 @@ new Vue ({
             date: '10/01/2020 15:30:55',
             message: 'Ricordati di chiamare la nonna',
             menuVisibility: false,
-            status: 'sent'
+            status: 'sent',
+            visualized: true,
             },
             {
             date: '10/01/2020 15:50:00',
@@ -148,7 +155,8 @@ new Vue ({
             date: '10/01/2020 15:30:55',
             message: 'Ciao Claudia, hai novità?',
             menuVisibility: false,
-            status: 'sent'
+            status: 'sent',
+            visualized: true,
             },
             {
             date: '10/01/2020 15:50:00',
@@ -160,7 +168,8 @@ new Vue ({
             date: '10/01/2020 15:51:00',
             message: 'Nessuna nuova, buona nuova',
             menuVisibility: false,
-            status: 'sent'
+            status: 'sent',
+            visualized: true,
             }
             ],
             },
@@ -177,7 +186,8 @@ new Vue ({
             date: '10/01/2020 15:30:55',
             message: 'Fai gli auguri a Martina che è il suo compleanno!',
             menuVisibility: false,
-            status: 'sent'
+            status: 'sent',
+            visualized: true,
             },
             {
             date: '10/01/2020 15:50:00',
@@ -206,7 +216,8 @@ new Vue ({
             date: '10/01/2020 15:50:00',
             message: 'No, l\'ho già mangiata ieri, ordiniamo sushi!',
             menuVisibility: false,
-            status: 'sent'
+            status: 'sent',
+            visualized: true,
             },
             {
             date: '10/01/2020 15:51:00',
@@ -232,6 +243,8 @@ new Vue ({
         showSendImg: false,
         showChatMenu: false,
         loading: true,
+        darkTheme: false,
+        fontSize: 18,
     },
     methods:{
         openChat(index) {
@@ -254,7 +267,8 @@ new Vue ({
                 date: this.currentDate(),
                 message: '',
                 menuVisibility: false,
-                status: 'sent'
+                status: 'sent',
+                visualized: false,
             }
             reply = {
                 date: this.currentDate(),
@@ -271,7 +285,9 @@ new Vue ({
                 setTimeout(() => this.contacts[this.selectedIndex].lastMessageIndex = 1, 5000);
                 setTimeout(() => this.contacts[this.selectedIndex].lastMessageIndex = 1, 1000);
                 setTimeout(() => this.contacts[this.selectedIndex].messages.push(reply), 6000);
-                setTimeout(() => this.contacts[this.selectedIndex].lastMessageIndex = 0, 7000)
+                setTimeout(() => this.contacts[this.selectedIndex].lastMessageIndex = 0, 7000);
+                setTimeout(() => this.contacts[this.selectedIndex].messages[this.contacts[this.selectedIndex].messages.length - 1].visualized = true, 1000)
+
             } 
         },
         filter() {
@@ -309,7 +325,8 @@ new Vue ({
                 date: this.currentDate(),
                 message: url,
                 menuVisibility: false,
-                status: 'sent'
+                status: 'sent',
+                visualized: true,
             };
             this.contacts[this.selectedIndex].messages.push(imgMex);
         },
@@ -347,6 +364,18 @@ new Vue ({
         },
         returnToChat() {
             this.selectedIndex = -1;
+        },
+        lightMode() {
+            this.darkTheme = false
+        },
+        darkMode() {
+            this.darkTheme = true
+        },
+        fontSizePlus() {
+            this.fontSize++
+        },
+        fontSizeMinus() {
+            this.fontSize--
         }
     },
     mounted() {

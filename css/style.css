@@ -213,7 +213,6 @@ i:hover{
     border-radius: 15px;
     padding: 1rem;
     position: relative;
-    font-size: 18px;
     word-wrap: break-word;
 }
 
@@ -231,7 +230,7 @@ i:hover{
 .hour{
     position: absolute;
     bottom: .5rem;
-    right: .5rem;
+    right: 2rem;
     font-size: 15px;
     color: rgb(150, 149, 149);
 }
@@ -300,7 +299,7 @@ i:hover{
 .welcome-page{
     width: 100%;
     height: 100%;
-    background-image: url(../img/mine.jpg);
+    background-color: #f0f2f5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -348,3 +347,138 @@ i:hover{
     margin: 0;
     padding: 0;
 }
+
+::-webkit-scrollbar{
+    width: 10px;
+}
+
+::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: rgba(72, 72, 72, 0.1);
+    border-radius: 10px;
+}
+
+.message i{
+    color: rgb(150, 149, 149);
+}
+
+.check-a{
+    position: absolute;
+    right: .8rem;
+    bottom: .5rem;
+}
+
+.check-b{
+    position: absolute;
+    right: .5rem;
+    bottom: .5rem;
+}
+
+.welcome-page span:last-child{
+    width: 50%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 300;
+    color: rgb(150, 149, 149);
+}
+
+  .wrapper {
+    display: inline-flex;
+    height: 100px;
+    width: 250px;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    padding: 20px 15px;
+    
+  }
+  .wrapper .option {
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 0 10px;
+    border: 2px solid #180f2f;
+    transition: all 0.5s ease;
+    margin: 0 10px;
+  }
+  input[type="radio"] {
+    display: none;
+  }
+  input#one:checked ~ .option-1,
+  input#two:checked ~ .option-2 {
+    background: #180f2f;
+    border-color: #180f2f;
+  }
+  input#one:checked ~ .option-1 span,
+  input#two:checked ~ .option-2 span {
+    color: #fff;
+  }
+  .wrapper .option span {
+    font-size: 20px;
+  }
+
+  .current-chat.dark{
+    background-image: url(../img/message-theme-dark.jfif);
+    background-position: center;
+    background-size: cover;
+  }
+
+  .writers.dark{
+    background-color: #202c33;
+  }
+
+  .input-message.dark{
+    background-color: #2a3942;
+  }
+
+  .selected-contact.dark{
+    background-color: #202c33;
+  }
+
+  .welcome-page.dark{
+    background-color: #222e35;
+  }
+
+  .chat.dark{
+    background-color: #111b21;
+  }
+
+  .search-bar.dark{
+    background-color: #111b21;
+  }
+
+  .btn-search.dark{
+    background-color: #202c33;
+  }
+
+  .input-search.dark{
+    background-color: #202c33;
+  }
+
+  .my-contact.dark{
+    background-color: #202c33;
+  }
+
+  .name.dark{
+    color: white;
+  }
+
+  .welcome-page span.dark{
+    color: white;
+  }
+
+  .font{
+    width: 40px;
+    aspect-ratio: 1 / 1;
+    border: none;
+    border-radius: 5px;
+    background-color: #cfcfcf;
+  }
