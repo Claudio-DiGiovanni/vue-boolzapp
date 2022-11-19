@@ -481,6 +481,9 @@ i:hover{
     border: none;
     border-radius: 5px;
     background-color: #cfcfcf;
+    font-size: 30px;
+    color: white;
+    font-weight: 700;
   }
 
   .chargeBar{
