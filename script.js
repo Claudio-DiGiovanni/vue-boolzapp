@@ -281,12 +281,13 @@ new Vue ({
             if (myMessage.message !== "") {
                 this.contacts[this.selectedIndex].messages.push(myMessage); 
                 this.newMessage = '';
-                setTimeout(() => this.contacts[this.selectedIndex].lastMessageIndex = 2, 3000);
-                setTimeout(() => this.contacts[this.selectedIndex].lastMessageIndex = 1, 5000);
-                setTimeout(() => this.contacts[this.selectedIndex].lastMessageIndex = 1, 1000);
-                setTimeout(() => this.contacts[this.selectedIndex].messages.push(reply), 6000);
-                setTimeout(() => this.contacts[this.selectedIndex].lastMessageIndex = 0, 7000);
-                setTimeout(() => this.contacts[this.selectedIndex].messages[this.contacts[this.selectedIndex].messages.length - 1].visualized = true, 1000)
+                const chatIndex = this.selectedIndex;
+                setTimeout(() => this.contacts[chatIndex].lastMessageIndex = 2, 3000);
+                setTimeout(() => this.contacts[chatIndex].lastMessageIndex = 1, 5000);
+                setTimeout(() => this.contacts[chatIndex].lastMessageIndex = 1, 1000);
+                setTimeout(() => this.contacts[chatIndex].messages.push(reply), 6000);
+                setTimeout(() => this.contacts[chatIndex].lastMessageIndex = 0, 7000);
+                setTimeout(() => this.contacts[chatIndex].messages[this.contacts[this.selectedIndex].messages.length - 1].visualized = true, 1000)
 
             } 
         },

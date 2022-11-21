@@ -67,7 +67,7 @@
                             <img class="img-contact" :src="obj.avatar" alt="obj.name">
                             <div class="info-contact">
                                 <h2 class="name w-100" :class="darkTheme ? 'dark' : ''">{{ obj.name }}</h2>
-                                <p class="last-message" v-if="obj.messages.length !== 0">{{ obj.messages[obj.messages.length - 1].message.slice(0, 18) + "..." }}</p>
+                                <p class="last-message" v-if="obj.messages.length !== 0">{{obj.lastMessageIndex === 2 ? obj.lastMessage[2] : obj.messages[obj.messages.length - 1].message.slice(0, 18) + "..." }}</p>
                             </div>
                             <span class="h-last-message" v-if="obj.messages.length !== 0">{{ obj.messages[obj.messages.length - 1].date.slice(11, 16) }}</span>
                         </div>
